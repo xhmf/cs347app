@@ -1,0 +1,245 @@
+-- Table Relation_9 has a compound primary key so no sequence or trigger was created for it.
+DROP SEQUENCE SIM_Person_seq ; 
+create sequence SIM_Person_seq 
+start with 100 
+increment by 1 
+nomaxvalue 
+;
+
+create or replace trigger SIM_Person_PK_trig 
+before insert on SIM_Person
+for each row 
+begin 
+select SIM_Person_seq.nextval into :new.person_id from dual; 
+end; 
+/
+alter table SIM_Person add created date ; 
+alter table SIM_Person add created_by VARCHAR2 (255) ; 
+alter table SIM_Person add row_version_number integer ; 
+alter table SIM_Person add updated date ; 
+alter table SIM_Person add updated_by VARCHAR2 (255) ; 
+/
+create or replace trigger SIM_Person_AUD_trig 
+before insert or update on SIM_Person 
+for each row 
+begin 
+  if inserting then 
+    :new.created := localtimestamp; 
+    :new.created_by := nvl(wwv_flow.g_user,user); 
+    :new.updated := localtimestamp; 
+    :new.updated_by := nvl(wwv_flow.g_user,user); 
+    :new.row_version_number := 1; 
+  elsif updating then 
+    :new.row_version_number := nvl(:old.row_version_number,1) + 1; 
+  end if; 
+  if inserting or updating then 
+    :new.updated := localtimestamp; 
+    :new.updated_by := nvl(wwv_flow.g_user,user); 
+  end if; 
+end; 
+/
+
+DROP SEQUENCE SIM_dept_seq ; 
+create sequence SIM_dept_seq 
+start with 100 
+increment by 1 
+nomaxvalue 
+;
+
+create or replace trigger SIM_dept_PK_trig 
+before insert on SIM_dept
+for each row 
+begin 
+select SIM_dept_seq.nextval into :new.dept_id from dual; 
+end; 
+/
+alter table SIM_dept add created date ; 
+alter table SIM_dept add created_by VARCHAR2 (255) ; 
+alter table SIM_dept add row_version_number integer ; 
+alter table SIM_dept add updated date ; 
+alter table SIM_dept add updated_by VARCHAR2 (255) ; 
+/
+create or replace trigger SIM_dept_AUD_trig 
+before insert or update on SIM_dept 
+for each row 
+begin 
+  if inserting then 
+    :new.created := localtimestamp; 
+    :new.created_by := nvl(wwv_flow.g_user,user); 
+    :new.updated := localtimestamp; 
+    :new.updated_by := nvl(wwv_flow.g_user,user); 
+    :new.row_version_number := 1; 
+  elsif updating then 
+    :new.row_version_number := nvl(:old.row_version_number,1) + 1; 
+  end if; 
+  if inserting or updating then 
+    :new.updated := localtimestamp; 
+    :new.updated_by := nvl(wwv_flow.g_user,user); 
+  end if; 
+end; 
+/
+
+DROP SEQUENCE SIM_emp_seq ; 
+create sequence SIM_emp_seq 
+start with 100 
+increment by 1 
+nomaxvalue 
+;
+
+create or replace trigger SIM_emp_PK_trig 
+before insert on SIM_emp
+for each row 
+begin 
+select SIM_emp_seq.nextval into :new.person_id from dual; 
+end; 
+/
+alter table SIM_emp add created date ; 
+alter table SIM_emp add created_by VARCHAR2 (255) ; 
+alter table SIM_emp add row_version_number integer ; 
+alter table SIM_emp add updated date ; 
+alter table SIM_emp add updated_by VARCHAR2 (255) ; 
+/
+create or replace trigger SIM_emp_AUD_trig 
+before insert or update on SIM_emp 
+for each row 
+begin 
+  if inserting then 
+    :new.created := localtimestamp; 
+    :new.created_by := nvl(wwv_flow.g_user,user); 
+    :new.updated := localtimestamp; 
+    :new.updated_by := nvl(wwv_flow.g_user,user); 
+    :new.row_version_number := 1; 
+  elsif updating then 
+    :new.row_version_number := nvl(:old.row_version_number,1) + 1; 
+  end if; 
+  if inserting or updating then 
+    :new.updated := localtimestamp; 
+    :new.updated_by := nvl(wwv_flow.g_user,user); 
+  end if; 
+end; 
+/
+
+DROP SEQUENCE SIM_manager_seq ; 
+create sequence SIM_manager_seq 
+start with 100 
+increment by 1 
+nomaxvalue 
+;
+
+create or replace trigger SIM_manager_PK_trig 
+before insert on SIM_manager
+for each row 
+begin 
+select SIM_manager_seq.nextval into :new.person_id from dual; 
+end; 
+/
+alter table SIM_manager add created date ; 
+alter table SIM_manager add created_by VARCHAR2 (255) ; 
+alter table SIM_manager add row_version_number integer ; 
+alter table SIM_manager add updated date ; 
+alter table SIM_manager add updated_by VARCHAR2 (255) ; 
+/
+create or replace trigger SIM_manager_AUD_trig 
+before insert or update on SIM_manager 
+for each row 
+begin 
+  if inserting then 
+    :new.created := localtimestamp; 
+    :new.created_by := nvl(wwv_flow.g_user,user); 
+    :new.updated := localtimestamp; 
+    :new.updated_by := nvl(wwv_flow.g_user,user); 
+    :new.row_version_number := 1; 
+  elsif updating then 
+    :new.row_version_number := nvl(:old.row_version_number,1) + 1; 
+  end if; 
+  if inserting or updating then 
+    :new.updated := localtimestamp; 
+    :new.updated_by := nvl(wwv_flow.g_user,user); 
+  end if; 
+end; 
+/
+
+DROP SEQUENCE SIM_project_seq ; 
+create sequence SIM_project_seq 
+start with 100 
+increment by 1 
+nomaxvalue 
+;
+
+create or replace trigger SIM_project_PK_trig 
+before insert on SIM_project
+for each row 
+begin 
+select SIM_project_seq.nextval into :new.project_id from dual; 
+end; 
+/
+alter table SIM_project add created date ; 
+alter table SIM_project add created_by VARCHAR2 (255) ; 
+alter table SIM_project add row_version_number integer ; 
+alter table SIM_project add updated date ; 
+alter table SIM_project add updated_by VARCHAR2 (255) ; 
+/
+create or replace trigger SIM_project_AUD_trig 
+before insert or update on SIM_project 
+for each row 
+begin 
+  if inserting then 
+    :new.created := localtimestamp; 
+    :new.created_by := nvl(wwv_flow.g_user,user); 
+    :new.updated := localtimestamp; 
+    :new.updated_by := nvl(wwv_flow.g_user,user); 
+    :new.row_version_number := 1; 
+  elsif updating then 
+    :new.row_version_number := nvl(:old.row_version_number,1) + 1; 
+  end if; 
+  if inserting or updating then 
+    :new.updated := localtimestamp; 
+    :new.updated_by := nvl(wwv_flow.g_user,user); 
+  end if; 
+end; 
+/
+
+DROP SEQUENCE SIM_project_emp_seq ; 
+create sequence SIM_project_emp_seq 
+start with 100 
+increment by 1 
+nomaxvalue 
+;
+
+create or replace trigger SIM_project_emp_PK_trig 
+before insert on SIM_project_emp
+for each row 
+begin 
+select SIM_project_emp_seq.nextval into :new.person_id from dual; 
+end; 
+/
+alter table SIM_project_emp add created date ; 
+alter table SIM_project_emp add created_by VARCHAR2 (255) ; 
+alter table SIM_project_emp add row_version_number integer ; 
+alter table SIM_project_emp add updated date ; 
+alter table SIM_project_emp add updated_by VARCHAR2 (255) ; 
+/
+create or replace trigger SIM_project_emp_AUD_trig 
+before insert or update on SIM_project_emp 
+for each row 
+begin 
+  if inserting then 
+    :new.created := localtimestamp; 
+    :new.created_by := nvl(wwv_flow.g_user,user); 
+    :new.updated := localtimestamp; 
+    :new.updated_by := nvl(wwv_flow.g_user,user); 
+    :new.row_version_number := 1; 
+  elsif updating then 
+    :new.row_version_number := nvl(:old.row_version_number,1) + 1; 
+  end if; 
+  if inserting or updating then 
+    :new.updated := localtimestamp; 
+    :new.updated_by := nvl(wwv_flow.g_user,user); 
+  end if; 
+end; 
+/
+
+DROP INDEX SIM_project_project_id_FK_0 ;
+CREATE INDEX SIM_project_project_id_FK_0 ON Relation_9(SIM_project_project_id) ;
+DROP INDEX SIM_project_emp_person_FK_1 ;
+CREATE INDEX SIM_project_emp_person_FK_1 ON Relation_9(SIM_project_emp_person_id) ;

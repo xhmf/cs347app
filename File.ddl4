@@ -1,0 +1,43 @@
+drop view SIM_manager;
+drop view SIM_project_emp;
+
+create view SIM_manager as
+SELECT title, bonus, dept_id 
+FROM SIM_emp;
+
+create or replace TRIGGER person_trigger
+     INSTEAD OF insert ON org_person
+     FOR EACH ROW
+BEGIN
+     insert into SIM_Person(
+        PERSON_ID,
+        NAME,
+        BIRTHDATE)
+     VALUES (
+        :new.PERSON_ID,
+        :new.NAME,
+        :new.BIRTHDATE) ;
+END;
+/
+
+create view SIM_project_emp as
+SELECT PERSON_ID, TYPE, NAME, DOB 
+FROM SIM_emp;
+
+create or replace TRIGGER owner_trigger
+     INSTEAD OF insert ON org_owner
+     FOR EACH ROW
+BEGIN
+     insert into SIM_Person(
+        PERSON_ID,
+        NAME,
+        BIRTHDATE)
+     VALUES (
+        :new.PERSON_ID,
+        :new.NAME,
+        :new.BIRTHDATE) ;
+END;
+/
+
+
+
