@@ -1,4 +1,3 @@
--- Table Relation_9 has a compound primary key so no sequence or trigger was created for it.
 DROP SEQUENCE SIM_Person_seq ; 
 create sequence SIM_Person_seq 
 start with 100 
@@ -33,40 +32,6 @@ select SIM_dept_seq.nextval into :new.dept_id from dual;
 end; 
 /
 
-DROP SEQUENCE SIM_emp_seq ; 
-create sequence SIM_emp_seq 
-start with 100 
-increment by 1 
-nomaxvalue 
-;
-DROP TRIGGER SIM_emp_PK_trig 
-; 
-
-create or replace trigger SIM_emp_PK_trig 
-before insert on SIM_emp
-for each row 
-begin 
-select SIM_emp_seq.nextval into :new.person_id from dual; 
-end; 
-/
-
-DROP SEQUENCE SIM_manager_seq ; 
-create sequence SIM_manager_seq 
-start with 100 
-increment by 1 
-nomaxvalue 
-;
-DROP TRIGGER SIM_manager_PK_trig 
-; 
-
-create or replace trigger SIM_manager_PK_trig 
-before insert on SIM_manager
-for each row 
-begin 
-select SIM_manager_seq.nextval into :new.person_id from dual; 
-end; 
-/
-
 DROP SEQUENCE SIM_project_seq ; 
 create sequence SIM_project_seq 
 start with 100 
@@ -84,24 +49,32 @@ select SIM_project_seq.nextval into :new.project_id from dual;
 end; 
 /
 
-DROP SEQUENCE SIM_project_emp_seq ; 
-create sequence SIM_project_emp_seq 
+DROP SEQUENCE SIM_projperson_seq ; 
+create sequence SIM_projperson_seq 
 start with 100 
 increment by 1 
 nomaxvalue 
 ;
-DROP TRIGGER SIM_project_emp_PK_trig 
+DROP TRIGGER SIM_projperson_PK_trig 
 ; 
 
-create or replace trigger SIM_project_emp_PK_trig 
-before insert on SIM_project_emp
+create or replace trigger SIM_projperson_PK_trig 
+before insert on SIM_projperson
 for each row 
 begin 
-select SIM_project_emp_seq.nextval into :new.person_id from dual; 
+select SIM_projperson_seq.nextval into :new.per_proj from dual; 
 end; 
 /
 
-DROP INDEX SIM_project_project_id_FK_0 ;
-CREATE INDEX SIM_project_project_id_FK_0 ON Relation_9(SIM_project_project_id) ;
-DROP INDEX SIM_project_emp_person_FK_1 ;
-CREATE INDEX SIM_project_emp_person_FK_1 ON Relation_9(SIM_project_emp_person_id) ;
+DROP INDEX SIM_dept_dept_id_FK_0 ;
+CREATE INDEX SIM_dept_dept_id_FK_0 ON SIM_Person(SIM_dept_dept_id) ;
+DROP INDEX SIM_dept_dept_id1_FK_1 ;
+CREATE INDEX SIM_dept_dept_id1_FK_1 ON SIM_Person(SIM_dept_dept_id1) ;
+DROP INDEX SIM_Person_person_id_FK_2 ;
+CREATE INDEX SIM_Person_person_id_FK_2 ON SIM_dept(SIM_Person_person_id) ;
+DROP INDEX SIM_dept_dept_id_FK_3 ;
+CREATE INDEX SIM_dept_dept_id_FK_3 ON SIM_project(SIM_dept_dept_id) ;
+DROP INDEX SIM_Person_person_id_FK_4 ;
+CREATE INDEX SIM_Person_person_id_FK_4 ON SIM_projperson(SIM_Person_person_id) ;
+DROP INDEX SIM_project_project_id_FK_5 ;
+CREATE INDEX SIM_project_project_id_FK_5 ON SIM_projperson(SIM_project_project_id) ;

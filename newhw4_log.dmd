@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="newhw4_log" id="20F576FE-0CC3-3A41-0466-991E9951ACAC" version="3.5">
+<createdBy>john</createdBy>
+<createdTime>2015-02-17 17:50:11 UTC</createdTime>
+<ownerDesignName>newhw4_log</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>20F576FE-0CC3-3A41-0466-991E9951ACAC</designId>
+</OSDM_Design>
